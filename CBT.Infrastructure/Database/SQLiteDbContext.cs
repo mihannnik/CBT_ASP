@@ -9,6 +9,7 @@ namespace CBT.Infrastructure.Database
     {
         public DbSet<User> Users { get; set; }
         public DbSet<UserAuth> Auth { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         public SQLiteDbContext(DbContextOptions<SQLiteDbContext> contextOptions) : base(contextOptions)
         {
@@ -28,13 +29,27 @@ namespace CBT.Infrastructure.Database
             modelBuilder.Entity<UserAuth>(e =>
                 { 
                     e.ToTable("auth");
-                    e.HasKey(a => a.UserId);
-                    e.HasKey(a => a.Type);
+                    e.HasKey(a => a.Id);
+                    e.Property(a => a.Id)
+                        .ValueGeneratedOnAdd();
                     e.HasOne(a => a.User)
                         .WithMany(u => u.UserAuth)
                         .HasForeignKey(a => a.UserId);
+                    e.HasIndex(a => new { a.UserId, a.Type })
+                        .IsUnique();
                 }
             );
+            modelBuilder.Entity<Event>(e =>
+                {
+                    e.ToTable("events");
+                    e.HasKey(ev => ev.Id);
+                    e.Property(ev => ev.Id)
+                        .ValueGeneratedOnAdd();
+                    e.HasOne(ev => ev.Owner)
+                        .WithMany(u => u.EventsOwner)
+                        .HasForeignKey(ev => ev.OwnerId);
+                });
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
