@@ -11,6 +11,7 @@ namespace CBT.Application
             services.AddTransient<IPasswordHasher, PasswordHasher>();
             services.AddTransient<ITokenProvider, JWTokenProvider>();
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IEventsService, EventsService>();
         }
     }
 }

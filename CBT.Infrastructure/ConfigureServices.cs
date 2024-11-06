@@ -19,6 +19,7 @@ namespace CBT.Infrastructure
                 options.UseSqlite($"Data Source={sqliteOptions.DataSource}");
             });
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IEventsRepository, EventsRepository>();
         }
     }
 }

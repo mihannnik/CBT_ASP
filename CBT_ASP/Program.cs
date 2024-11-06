@@ -1,15 +1,17 @@
 using CBT.Application;
-using CBT.Domain.Interfaces;
+using CBT.Domain.Models;
+using CBT.Domain.Models.Auth;
 using CBT.Domain.Options;
 using CBT.Infrastructure;
 using CBT.Web.Configuration;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore.Storage.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -19,7 +21,6 @@ builder.Services.Configure<SQLiteOptions>(builder.Configuration.GetSection(SQLit
 builder.Services.AddAuthentication(builder.Configuration.GetSection(JWTOptions.SectionName).Get<JWTOptions>());
 builder.Services.AddAplicationServices();
 builder.Services.AddInfrastructureServices();
-
 
 var app = builder.Build();
 
