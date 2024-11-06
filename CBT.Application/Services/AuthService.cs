@@ -1,5 +1,6 @@
 ﻿using CBT.Domain.Interfaces;
 using CBT.Domain.Models;
+using CBT.Domain.Models.Auth;
 using CBT.Domain.Requests;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -33,7 +34,7 @@ namespace CBT.Application.Services
 
         public User? GetAuthUser(LoginRequest login)
         {
-            var user = Repository.GetUser(login.Identity);
+            var user = Repository.GetAuthUser(login.Identity);
             if(user is UserAuth Auth && PasswordHasher.Verify(login.Password, Auth.PasswordHash))
             {
                 return Auth.User;

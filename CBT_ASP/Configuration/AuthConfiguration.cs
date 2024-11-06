@@ -1,4 +1,6 @@
-﻿using CBT.Domain.Options;
+﻿using CBT.Domain.Models;
+using CBT.Domain.Models.Enums;
+using CBT.Domain.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -9,7 +11,23 @@ namespace CBT.Web.Configuration
     {
         public static void AddAuthentication(this IServiceCollection Services, JWTOptions Options)
         {
-            Services.AddAuthorization();
+            Services.AddAuthorization(options =>
+                {
+                    foreach (var permission in Permissions.GetValues<Permissions>().Cast<Permissions>())
+                    {
+                        options.AddPolicy(new StringBuilder().Append("Event").Append(permission.ToString()).Append("Policy").ToString(),
+                            policy =>
+                            {
+                                policy
+                                    .RequireAuthenticatedUser()
+                                    .RequireClaim("Role", UserPermissions.RolesPermissions
+                                        .Where(i => i.Value.Contains(permission))
+                                        .Select(i => i.Key.ToString())
+                                        .ToList());
+                            });
+                    }
+                }
+            );
             var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Options.SecretKey));
             Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
                 AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
