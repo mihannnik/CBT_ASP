@@ -16,7 +16,7 @@ namespace CBT.Web.Controllers
         [Authorize(Policy = "EventReadPolicy")]
         public IActionResult GetEvents()
         {
-            return Ok(eventsService.GetEvents());
+            return Ok(eventsService.GetEvents().Select(ev =>new VirtualEvent(ev)));
         }
 
         [Route("{id}")]
@@ -26,7 +26,7 @@ namespace CBT.Web.Controllers
         {
             if (eventsService.GetEvent(id) is Event ev)
             {
-                return Ok(ev);
+                return Ok(new VirtualEvent(ev));
             }
             return BadRequest();
         }

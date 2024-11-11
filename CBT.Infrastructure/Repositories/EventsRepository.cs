@@ -30,55 +30,15 @@ namespace CBT.Infrastructure.Repositories
         {
             return context.Events
                 .Where(ev => ev.Id == id)
-                .Select(ev => new Event
-                {
-                    Id = ev.Id,
-                    Title = ev.Title,
-                    Description = ev.Description,
-                    Date = ev.Date,
-                    Owner = ev.Users
-                    .Where(u => u.Id == ev.OwnerId)
-                    .Select(u => new User
-                    {
-                        Id = u.Id,
-                        Name = u.Name,
-                        Username = u.Name
-                    })
-                    .First(),
-                    Users = ev.Users.Select(u => new User
-                    {
-                        Id = u.Id,
-                        Name = u.Name,
-                        Username = u.Username
-                    }).ToList()
-                })
+                .Include(ev => ev.Owner)
+                .Include(ev => ev.Users)
                 .FirstOrDefault();
         }
 
         public IEnumerable<Event> GetEvents()
         {
             return context.Events
-                .Select(ev => new Event
-                { 
-                    Id = ev.Id,
-                    Title = ev.Title,
-                    Description = ev.Description,
-                    Date = ev.Date,
-                    Owner = ev.Users.Where(u => u.Id == ev.OwnerId)
-                    .Select(u => new User
-                    { 
-                        Id = u.Id,
-                        Name = u.Name,
-                        Username = u.Name
-                    })
-                    .First(),
-                    Users = ev.Users.Select(u => new User
-                    {
-                        Id = u.Id,
-                        Name = u.Name,
-                        Username = u.Username
-                    }).ToList()
-                })
+                .Include(ev => ev.Owner)
                 .Include(ev => ev.Users);
         }
 
