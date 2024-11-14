@@ -3,6 +3,7 @@ using CBT.Domain.Models.Enums;
 using CBT.Domain.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 namespace CBT.Web.Configuration
@@ -20,7 +21,7 @@ namespace CBT.Web.Configuration
                             {
                                 policy
                                     .RequireAuthenticatedUser()
-                                    .RequireClaim("Role", UserPermissions.RolesPermissions
+                                    .RequireClaim(ClaimTypes.Role, UserPermissions.RolesPermissions
                                         .Where(i => i.Value.Contains(permission))
                                         .Select(i => i.Key.ToString())
                                         .ToList());

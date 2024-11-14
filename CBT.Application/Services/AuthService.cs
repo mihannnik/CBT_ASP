@@ -17,9 +17,9 @@ namespace CBT.Application.Services
         public string GetAuthToken(User user)
         {
             Claim[] claims = [
-                new("Id", user.Id.ToString()),
-                new("Name", user.Name),
-                new("Role", user.Role.ToString())
+                new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new(ClaimTypes.Name, user.Name),
+                new(ClaimTypes.Role, user.Role.ToString())
                 ];
             return TokenProvider.GenerateToken(claims);
         }
@@ -27,7 +27,7 @@ namespace CBT.Application.Services
         public string GetRefreshToken(User user)
         {
             Claim[] claims = [
-                new("Id", user.Id.ToString())
+                new(ClaimTypes.NameIdentifier, user.Id.ToString())
                 ];
             return TokenProvider.GenerateRefreshToken(claims);
         }
