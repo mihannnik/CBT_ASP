@@ -1,13 +1,6 @@
-﻿using CBT.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CBT.Domain.Options
+﻿namespace CBT.Domain.Options
 {
-    public class JWTOptions : IOption
+    public class JWTOptions
     {
         public static string SectionName = nameof(JWTOptions);
         public static string CookiesName = "Auth";

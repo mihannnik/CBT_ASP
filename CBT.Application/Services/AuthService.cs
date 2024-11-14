@@ -12,7 +12,11 @@ using System.Threading.Tasks;
 
 namespace CBT.Application.Services
 {
-    public class AuthService(IAuthRepository Repository, IPasswordHasher PasswordHasher, ITokenProvider TokenProvider) : IAuthService
+    public class AuthService(
+            IAuthRepository Repository, 
+            IPasswordHasher PasswordHasher, 
+            ITokenProvider TokenProvider)
+        : IAuthService
     {
         public string GetAuthToken(User user)
         {

@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace CBT.Application.Services
 {
     public class EventsService(
-        IEventsRepository Repository, 
-        IAuthRepository authRepository
-        ) : IEventsService
+            IEventsRepository Repository, 
+            IAuthRepository authRepository)
+        : IEventsService
     {
         public Event? Create(CreateEventRequest createRequest, Guid UserId)
         {
