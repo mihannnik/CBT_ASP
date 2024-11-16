@@ -1,7 +1,5 @@
 ﻿using CBT.Domain.Models;
-using CBT.Domain.Options;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace CBT.Infrastructure.Database
 {
@@ -10,11 +8,16 @@ namespace CBT.Infrastructure.Database
         public DbSet<User> Users { get; set; }
         public DbSet<UserAuth> Auth { get; set; }
         public DbSet<Event> Events { get; set; }
+        public DbSet<UserRefreshToken> Tokens { get; set; }
+        public SQLiteDbContext()
+        {
+            
+        }
 
         public SQLiteDbContext(DbContextOptions<SQLiteDbContext> contextOptions) : base(contextOptions)
         {
             //Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,7 +52,14 @@ namespace CBT.Infrastructure.Database
                         .WithMany(u => u.EventsOwner)
                         .HasForeignKey(ev => ev.OwnerId);
                 });
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<UserRefreshToken>(e =>
+                {
+                    e.ToTable("usertokens");
+                    e.HasKey(e => e.RefreshToken);
+                    e.Property(e => e.RefreshToken);
+                    e.Property(e => e.UserId);
+                    e.Property(e => e.ExpireAt);
+                });
         }
     }
 }
