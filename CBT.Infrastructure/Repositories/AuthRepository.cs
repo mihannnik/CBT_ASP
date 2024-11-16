@@ -1,6 +1,6 @@
-﻿using CBT.Domain.Interfaces;
+﻿using CBT.Application.Interfaces;
 using CBT.Domain.Models;
-using CBT.Domain.Models.Auth;
+using CBT.Domain.Models.Enums;
 using CBT.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +8,19 @@ namespace CBT.Infrastructure.Repositories
 {
     public class AuthRepository(SQLiteDbContext context) : IAuthRepository
     {
+        public UserRefreshToken AddRefreshToken(Guid id, string token, DateTime expirateDate)
+        {
+            UserRefreshToken UserToken = new UserRefreshToken
+            {
+                UserId = id,
+                RefreshToken = token,
+                ExpireAt = expirateDate
+            };
+            context.Tokens.Add(UserToken);
+            context.SaveChanges();
+            return UserToken;
+        }
+
         public User CreateUser(string Name, ICollection<UserAuth> auths, string? Username = null, Role Role = Role.User)
         {
             User user = new User
@@ -33,6 +46,18 @@ namespace CBT.Infrastructure.Repositories
         public User? GetUser(Guid id)
         {
             return context.Users.FirstOrDefault(u => u.Id.CompareTo(id) == 0);
+        }
+
+        public Guid? UseRefreshToken(string token)
+        {
+            if (context.Tokens.FirstOrDefault(t => t.RefreshToken == token) is UserRefreshToken UserToken)
+            {
+                context.Tokens.Remove(UserToken);
+                context.SaveChanges();
+                if (UserToken.ExpireAt > DateTime.UtcNow) 
+                    return UserToken.UserId;
+            }
+            return null;
         }
     }
 }

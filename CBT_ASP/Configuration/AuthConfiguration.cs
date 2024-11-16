@@ -1,6 +1,8 @@
-﻿using CBT.Domain.Models;
+﻿using CBT.Application.Interfaces;
+using CBT.Domain.Models;
 using CBT.Domain.Models.Enums;
-using CBT.Domain.Options;
+using CBT.Infrastructure.Common.Options;
+using CBT.Web.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
