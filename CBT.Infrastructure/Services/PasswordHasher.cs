@@ -1,6 +1,6 @@
-﻿using CBT.Domain.Interfaces;
+﻿using CBT.Application.Interfaces;
 
-namespace CBT.Application.Services
+namespace CBT.Infrastructure.Services
 {
     public class PasswordHasher : IPasswordHasher
     {

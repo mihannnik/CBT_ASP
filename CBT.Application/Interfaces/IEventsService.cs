@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CBT.Domain.Interfaces
+namespace CBT.Application.Interfaces
 {
     public interface IEventsService
     {

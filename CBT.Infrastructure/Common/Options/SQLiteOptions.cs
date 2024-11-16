@@ -1,4 +1,4 @@
-﻿namespace CBT.Domain.Options
+﻿namespace CBT.Infrastructure.Common.Options
 {
     public class SQLiteOptions
     {

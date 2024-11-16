@@ -1,12 +1,7 @@
-﻿using CBT.Domain.Interfaces;
+﻿using CBT.Application.Interfaces;
 using CBT.Domain.Models;
 using CBT.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CBT.Infrastructure.Repositories
 {

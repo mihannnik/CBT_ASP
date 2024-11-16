@@ -1,4 +1,4 @@
-﻿using CBT.Domain.Interfaces;
+﻿using CBT.Application.Interfaces;
 using CBT.Domain.Models;
 using CBT.Domain.Requests;
 using System;
@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CBT.Application.Services
+namespace CBT.Infrastructure.Services
 {
     public class EventsService(
-            IEventsRepository Repository, 
+            IEventsRepository Repository,
             IAuthRepository authRepository)
         : IEventsService
     {

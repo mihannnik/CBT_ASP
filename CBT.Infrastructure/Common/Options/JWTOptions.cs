@@ -1,4 +1,4 @@
-﻿namespace CBT.Domain.Options
+﻿namespace CBT.Infrastructure.Common.Options
 {
     public class JWTOptions
     {
@@ -8,7 +8,7 @@
         public required string SecretKey { get; set; }
         public string? Issuer = null;
         public string? Audience = null;
-        public string ExpireTime { get; set; } = TimeSpan.Zero.ToString();
-        public string RefreshExpireTime { get; set; } = TimeSpan.Zero.ToString();
+        public TimeSpan ExpireTime { get; set; } = TimeSpan.Zero;
+        public TimeSpan RefreshExpireTime { get; set; } = TimeSpan.Zero;
     }
 }

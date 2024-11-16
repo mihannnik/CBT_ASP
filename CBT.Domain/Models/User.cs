@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CBT.Domain.Models.Auth;
+using CBT.Domain.Models.Enums;
 
 namespace CBT.Domain.Models
 {

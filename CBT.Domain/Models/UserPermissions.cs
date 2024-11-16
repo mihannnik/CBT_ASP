@@ -1,5 +1,4 @@
-﻿using CBT.Domain.Models.Auth;
-using CBT.Domain.Models.Enums;
+﻿using CBT.Domain.Models.Enums;
 
 namespace CBT.Domain.Models;
 

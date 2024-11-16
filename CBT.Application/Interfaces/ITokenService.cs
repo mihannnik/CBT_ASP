@@ -6,11 +6,11 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CBT.Domain.Interfaces
+namespace CBT.Application.Interfaces
 {
     public interface ITokenProvider
     {
-        public string GenerateToken(Claim[] claims);
-        public string GenerateRefreshToken(Claim[] claims);
+        public string GenerateToken(Claim[] claims, bool isRefresh = false);
+        public string GenerateToken(Claim[] claims, out DateTime expireAt, bool isRefresh = false);
     }
 }

@@ -1,14 +1,14 @@
 ﻿using CBT.Domain.Models;
 using CBT.Domain.Requests;
 
-namespace CBT.Domain.Interfaces
+namespace CBT.Application.Interfaces
 {
     public interface IAuthService
     {
         public void Register(RegisterRequest register);
         public User? GetAuthUser(LoginRequest login);
-        public string GetAuthToken(User user);
-        public string GetRefreshToken(User user);
-        public string RefreshToken();
+        public string CreateAuthToken(User user);
+        public string CreateRefreshToken(User user);
+        public User? UseRefreshToken(string token);
     }
 }

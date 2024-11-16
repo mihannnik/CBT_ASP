@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CBT.Domain.Models.Auth
+namespace CBT.Domain.Models.Enums
 {
     public enum IdentityTypes
     {
